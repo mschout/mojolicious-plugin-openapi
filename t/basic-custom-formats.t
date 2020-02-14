@@ -11,7 +11,7 @@ get '/custom-format' => sub {
   'custom_format';
 
 my $oap = plugin OpenAPI => {url => 'data://main/custom-format.json'};
-$oap->validator->formats->{need_to_be_x} = sub { $_[0] eq 'x' ? undef : 'Not x.' };
+$oap->validator->schema->formats->{need_to_be_x} = sub { $_[0] eq 'x' ? undef : 'Not x.' };
 
 my $t = Test::Mojo->new;
 $t->get_ok('/api/custom-format' => json => {str => 'x'})->status_is(200)

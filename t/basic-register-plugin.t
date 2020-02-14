@@ -91,8 +91,8 @@ plugin OpenAPI => {
 };
 
 ok $obj->route->find('cool_api'), 'found api endpoint';
-isa_ok($obj->route,     'Mojolicious::Routes::Route');
-isa_ok($obj->validator, 'JSON::Validator::OpenAPI::Mojolicious');
+isa_ok $obj->route,     'Mojolicious::Routes::Route';
+isa_ok $obj->validator, 'JSON::Validator';
 
 my $t = Test::Mojo->new;
 $t->get_ok('/one')->status_is(200)

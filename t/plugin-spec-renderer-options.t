@@ -40,15 +40,6 @@ $t->options_ok('/api/spec?method=get')->status_is(200)
   ->json_is('/title',       'Test spec response')->json_is('/description', '')
   ->json_is('/operationId', 'Spec')->json_is('/definitions/SpecResponse/type', 'object');
 
-eval {
-  my $jv = JSON::Validator->new(version => undef);
-  is $jv->version, undef, 'no version before load_and_validate_schema';
-  $jv->load_and_validate_schema($t->tx->res->json);
-  is $jv->version, 4, 'valid schema';
-} or do {
-  ok 0, "api/spec did not return a valid schema: $@";
-};
-
 $t->options_ok('/api/spec?method=post')->status_is(404)
   ->json_is('/errors/0/message', 'No spec defined.');
 
